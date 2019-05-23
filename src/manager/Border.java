@@ -1,9 +1,16 @@
 package manager;
 
+<<<<<<< HEAD
 import static manager.Manager.WIDHT;
 import static manager.Manager.HEIGHT;
 
+=======
+>>>>>>> 0cbf24ecb5af8ee24f4c1dd3277101d8c3e41f21
 public class Border {
+
+    public int SCREEN_SIZE_X = 100;
+    public int SCREEN_SIZE_Y = 200;
+
     private int x1, x2, y1, y2;
     void changerToReal(int xo1, int xo2, int yo1, int yo2) {
         int xOld1 = x1;
