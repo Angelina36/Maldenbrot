@@ -1,9 +1,9 @@
 package drawing;
 
-public class Point implements Drawable  { // будущие точки
-    private int x;
-    private int y;
-    private int col; // цвет точки
+public class Point implements Drawable { // будущие точки
+    public int x;
+    public int y;
+    public int col; // цвет точки
     public void draw() {
 
     }

@@ -1,9 +1,12 @@
 package manager;
 
-public class Manager {
-    public static int  SCREEN_SIZE_X = 1000000;
-    public static int SCREEN_SIZE_Y = 700000;
-    public static void main(String[] args){
+import drawing.Painter;
+import listener.Listener;
 
+public class Manager {
+
+    public static void main(String[] args){
+        javax.swing.SwingUtilities.invokeLater(new Listener());
+        javax.swing.SwingUtilities.invokeLater(new Painter());
     }
 }

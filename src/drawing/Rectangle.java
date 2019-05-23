@@ -1,57 +1,73 @@
 package drawing;
+import javax.swing.*;
 
-public class Rectangle implements  Drawable { // прямоугольники
-    private int x1, x2, y1, y2;
-    boolean status; // статус - рисовать или нет
-    public void draw(){
+import java.awt.*; //for math
 
+import java.awt.event.*; //for mouse event
+
+public class Rectangle extends JPanel {
+
+    int x1, y1, x2, y2;
+
+    // create frame
+    /*public static void main(String[] args) {
+        JFrame f = new JFrame("Fractal Explorer");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setContentPane(new Rectangle());
+        f.setSize(300, 300);
+        f.setVisible(true);
+    }*/
+
+
+    // call each time we call the method repaint()
+    Rectangle() {
+        x1 = y1 = x2 = y2 = 0; //
+        MyMouseListener listener = new MyMouseListener();
+        addMouseListener(listener);
+        addMouseMotionListener(listener);
     }
 
-    public Rectangle(int x1, int x2, int y1, int y2, boolean status) { // конструктор
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
-        this.status = status;
+    public void setStartPoint(int x, int y) {
+        x1 = x;
+        y1 = y;
     }
 
-    public int getX1() { // для того чтобы менять и смотреть на приватные поля
-        return x1;
+    public void setEndPoint(int x, int y) {
+        x2 = x;
+        y2 = y;
     }
 
-    public void setX1(int x1) {
-        this.x1 = x1;
+    public void drawPerfectRect(Graphics g, int x1, int y1, int x2, int y2) {
+        int x_final = Math.min(x1,x2);
+        int y_final = Math.min(y1,y2);
+        int width =Math.abs(x1-x2);
+        int height =Math.abs(y1-y2);
+
+        // method from Graphics
+        g.drawRect(x_final, y_final, width, height);
     }
 
-    public int getX2() {
-        return x2;
+
+    class MyMouseListener extends MouseAdapter {
+
+        public void mousePressed(MouseEvent e) {
+            setStartPoint(e.getX(), e.getY());
+        }
+
+        public void mouseDragged(MouseEvent e) {
+            setEndPoint(e.getX(), e.getY());
+            repaint();
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            setEndPoint(e.getX(), e.getY());
+        }
     }
 
-    public void setX2(int x2) {
-        this.x2 = x2;
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.RED);
+        drawPerfectRect(g, x1, y1, x2, y2);
     }
 
-    public int getY1() {
-        return y1;
-    }
-
-    public void setY1(int y1) {
-        this.y1 = y1;
-    }
-
-    public int getY2() {
-        return y2;
-    }
-
-    public void setY2(int y2) {
-        this.y2 = y2;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 }

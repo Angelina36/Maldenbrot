@@ -27,4 +27,5 @@ public class Mouse { // курсор
     public void setCleckTrue(boolean cleckTrue) {
         isCleckTrue = cleckTrue;
     }
+
 }
