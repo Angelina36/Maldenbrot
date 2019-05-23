@@ -1,9 +1,10 @@
 package manager;
 
-import static manager.Manager.SCREEN_SIZE_X;
-import static manager.Manager.SCREEN_SIZE_Y;
-
 public class Border {
+
+    public int SCREEN_SIZE_X = 100;
+    public int SCREEN_SIZE_Y = 200;
+
     private int x1, x2, y1, y2;
     void changer(int xo1, int xo2, int yo1, int yo2) {
         x1 = (x2 - x1) / SCREEN_SIZE_X * xo1 + x1;

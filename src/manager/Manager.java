@@ -3,10 +3,12 @@ package manager;
 import drawing.Painter;
 import listener.Listener;
 
-public class Manager {
+import javax.swing.*;
 
+public class Manager {
     public static void main(String[] args){
-        javax.swing.SwingUtilities.invokeLater(new Listener());
-        javax.swing.SwingUtilities.invokeLater(new Painter());
+        Painter painter = new Painter();
+        Thread thread = new Thread(painter);
+        thread.start();
     }
 }
