@@ -5,12 +5,45 @@ import drawing.Point;
 import static manager.Manager.*;
 
 public class Fractal implements Runnable {
-    @Override
-    public void run(){
 
+    public final Border border = new Border(-2, 2, 2, -2);
+    boolean flag = true;
+    @Override
+    public void run() {
+        int i = 0;
+        for (;;) {
+            synchronized (border) {
+                if (border.isNew) {
+                    System.out.println("@@@@");
+                    flag = true;
+                    border.isNew = false;
+                }
+            }
+            if (flag) {
+                step();
+                flag = false;
+            }
+            i += 1;
+        }
     }
 
-    Point[][] points;
+    public Fractal() {
+        points = new Point[WINDOW_WIDTH][WINDOW_HEIGHT];
+        for (int i = 0; i < WINDOW_WIDTH; i++) {
+            points[i] = new Point[WINDOW_HEIGHT];
+        }
+        for (int i = 0; i < WINDOW_WIDTH; i++) {
+            for (int j = 0; j < WINDOW_HEIGHT; j++) {
+                points[i][j] = new Point(i, j);
+            }
+        }
+    }
+
+    void setBorder(int xo1, int xo2, int yo1, int yo2) {
+        this.border.changerToReal(xo1, xo2, yo1, yo2);
+    }
+
+    public Point[][] points;
 
     private int computeIterations(double c_r, double c_i) {
 
@@ -59,13 +92,15 @@ public class Fractal implements Runnable {
 
     }
 
-    public void step(){
-        for (int i = 0; i < WIDHT; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                points[i][j] = new Point(i, j);
-                points[i][j].changerToComplex();
-                points[i][j].setCol(this.computeIterations(points[i][j].r, points[i][j].i));
-
+    public void step() {
+        System.out.println(border.x1 + " " + border.x2);
+        for (int i = 0; i < WINDOW_WIDTH; i++) {
+            synchronized (points) {
+                for (int j = 0; j < WINDOW_HEIGHT; j++) {
+                    points[i][j] = new Point(i, j);
+                    points[i][j].changerToComplex(border.x1, border.x2, border.y1, border.y2);
+                    points[i][j].setCol(this.computeIterations(points[i][j].r, points[i][j].i));
+                }
             }
         }
 

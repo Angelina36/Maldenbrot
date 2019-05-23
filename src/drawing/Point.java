@@ -1,7 +1,7 @@
 package drawing;
 
-import static manager.Manager.HEIGHT;
-import static manager.Manager.WIDHT;
+import static manager.Manager.WINDOW_HEIGHT;
+import static manager.Manager.WINDOW_WIDTH;
 
 public class Point implements Drawable { // будущие точки
     public int x;
@@ -18,9 +18,9 @@ public class Point implements Drawable { // будущие точки
         this.y = y;
     }
 
-    public void changerToComplex (double borderX1, double borderX2, double borderY1, double borderY2) {
-        r = borderX1 + x * (borderX2 - borderX1) / WIDHT;
-        i = borderY1 - y * (borderY1 - borderY2) / HEIGHT;
+    public void changerToComplex(double borderX1, double borderX2, double borderY1, double borderY2) {
+        r = borderX1 + x * (borderX2 - borderX1) / WINDOW_WIDTH;
+        i = borderY1 + y * (borderY2 - borderY1) / WINDOW_HEIGHT;
     }
 
     public void setCol(int col) {
